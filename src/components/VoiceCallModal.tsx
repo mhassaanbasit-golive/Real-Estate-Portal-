@@ -51,6 +51,24 @@ export default function VoiceCallModal({ isOpen, onClose }: VoiceCallModalProps)
     setTimeout(() => {
       setIsLoading(false);
       setIsNotified(true);
+      
+      try {
+        const existingRaw = localStorage.getItem('lead_capture');
+        const existing = existingRaw ? JSON.parse(existingRaw) : [];
+        const newLead = {
+          id: Date.now().toString(),
+          timestamp: new Date().toISOString(),
+          phoneNumber: phoneNumber.trim(),
+          partner: PARTNERS[selectedPartner].name,
+          partnerRole: PARTNERS[selectedPartner].role,
+          specialty: PARTNERS[selectedPartner].specialty,
+        };
+        const updatedLeads = [newLead, ...existing];
+        localStorage.setItem('lead_capture', JSON.stringify(updatedLeads));
+      } catch (err) {
+        console.error("Failed to save lead capture", err);
+      }
+
       setTimeout(() => {
         setIsSubmitted(true);
       }, 1000);
@@ -255,6 +273,35 @@ export default function VoiceCallModal({ isOpen, onClose }: VoiceCallModalProps)
               <div className="flex items-center justify-center gap-2 px-4 py-2 border border-stone-900 bg-stone-950/80 rounded-lg text-[10px] font-mono text-stone-500 uppercase">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-500/80" />
                 <span>Encrypted Call-Bridge Active</span>
+              </div>
+
+              {/* Local Lead Capture Diagnostic Log */}
+              <div className="w-full text-left bg-stone-950 border border-stone-900 rounded-xl p-3 space-y-2">
+                <div className="flex items-center justify-between border-b border-stone-900 pb-1.5 mb-1.5">
+                  <span className="text-[9px] font-mono text-stone-500 uppercase font-bold">Secure Local Ledger</span>
+                  <span className="text-[9px] font-mono text-amber-500 uppercase">Active Persistence</span>
+                </div>
+                <div className="max-h-[80px] overflow-y-auto space-y-2 scrollbar-thin">
+                  {(() => {
+                    try {
+                      const list = JSON.parse(localStorage.getItem('lead_capture') || '[]');
+                      if (list.length === 0) return <p className="text-[10px] font-mono text-stone-600">No logs found.</p>;
+                      return list.slice(0, 3).map((item: any) => (
+                        <div key={item.id} className="text-[10px] font-mono text-stone-400 flex flex-col gap-0.5 border-l border-amber-500/30 pl-2">
+                          <div className="flex justify-between text-stone-500 text-[9px]">
+                            <span>{new Date(item.timestamp).toLocaleTimeString()}</span>
+                            <span className="text-amber-500/70">{item.partner.split(' ')[0]}</span>
+                          </div>
+                          <div className="text-stone-300 truncate">
+                            Dialer Bridge: +1 {item.phoneNumber}
+                          </div>
+                        </div>
+                      ));
+                    } catch (e) {
+                      return <p className="text-[10px] font-mono text-stone-600">Failed to read ledger.</p>;
+                    }
+                  })()}
+                </div>
               </div>
 
               <button

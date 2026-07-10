@@ -20,6 +20,17 @@ export default function PropertyCard({
   onQuickBook,
 }: PropertyCardProps) {
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
+  const [isSaved, setIsSaved] = useState(isBookmarked);
+
+  React.useEffect(() => {
+    setIsSaved(isBookmarked);
+  }, [isBookmarked]);
+
+  const handleBookmarkClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsSaved(!isSaved);
+    onBookmarkToggle(listing.id, e);
+  };
 
   const handleNextImage = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -65,10 +76,10 @@ export default function PropertyCard({
           </div>
 
           <button
-            onClick={(e) => onBookmarkToggle(listing.id, e)}
+            onClick={handleBookmarkClick}
             className="p-2 bg-white/80 dark:bg-slate-950/80 hover:bg-white dark:hover:bg-slate-950 text-stone-700 dark:text-stone-300 hover:text-amber-600 dark:hover:text-amber-500 rounded-full shadow-md backdrop-blur-sm transition-colors cursor-pointer"
           >
-            <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-amber-600 stroke-amber-600 dark:fill-amber-500 dark:stroke-amber-500' : ''}`} />
+            <Bookmark className={`w-4 h-4 ${isSaved ? 'fill-amber-600 stroke-amber-600 dark:fill-amber-500 dark:stroke-amber-500' : ''}`} />
           </button>
         </div>
 

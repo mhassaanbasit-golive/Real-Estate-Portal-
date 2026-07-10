@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
@@ -162,8 +165,17 @@ app.post("/api/chat", async (req, res) => {
     const cleanResult = sanitizeAdvisoryText(response.text || "");
     res.json({ message: cleanResult });
   } catch (error: any) {
-    console.error("Gemini API Error:", error);
-    res.status(500).json({ error: error.message || "An unexpected error occurred during advisory generation." });
+    console.error("Gemini API Error, falling back to simulated engine:", error);
+    try {
+      const { messages } = req.body;
+      const lastMessageObj = messages && messages.length > 0 ? messages[messages.length - 1] : null;
+      const lastMessageText = lastMessageObj ? lastMessageObj.content : "";
+      const simulatedText = getSimulatedResponse(lastMessageText);
+      return res.json({ message: simulatedText });
+    } catch (fallbackError: any) {
+      console.error("Fallback error:", fallbackError);
+      res.status(500).json({ error: error.message || "An unexpected error occurred during advisory generation." });
+    }
   }
 });
 

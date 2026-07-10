@@ -162,7 +162,7 @@ export default function App() {
   };
 
   return (
-    <div className="bg-stone-50 text-stone-900 dark:bg-[#050505] dark:text-white min-h-screen transition-colors duration-500 flex flex-col justify-between">
+    <div className="bg-stone-50 text-stone-900 dark:bg-[#050505] dark:text-white min-h-screen transition-colors duration-500 flex flex-col justify-between w-full max-w-[100vw] overflow-x-hidden box-border">
       <div>
         {/* Global Navigation Header */}
         <Header
