@@ -39,8 +39,20 @@ export default function VoiceCallModal({ isOpen, onClose }: VoiceCallModalProps)
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isNotified, setIsNotified] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [leadCaptureLogs, setLeadCaptureLogs] = useState<any[]>([]);
 
   const currentPartner = PARTNERS[selectedPartner];
+
+  React.useEffect(() => {
+    if (isOpen) {
+      try {
+        const existingRaw = localStorage.getItem('lead_capture');
+        setLeadCaptureLogs(existingRaw ? JSON.parse(existingRaw) : []);
+      } catch (err) {
+        console.error("Failed to load lead captures from storage", err);
+      }
+    }
+  }, [isOpen, isSubmitted]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -282,25 +294,21 @@ export default function VoiceCallModal({ isOpen, onClose }: VoiceCallModalProps)
                   <span className="text-[9px] font-mono text-amber-500 uppercase">Active Persistence</span>
                 </div>
                 <div className="max-h-[80px] overflow-y-auto space-y-2 scrollbar-thin">
-                  {(() => {
-                    try {
-                      const list = JSON.parse(localStorage.getItem('lead_capture') || '[]');
-                      if (list.length === 0) return <p className="text-[10px] font-mono text-stone-600">No logs found.</p>;
-                      return list.slice(0, 3).map((item: any) => (
-                        <div key={item.id} className="text-[10px] font-mono text-stone-400 flex flex-col gap-0.5 border-l border-amber-500/30 pl-2">
-                          <div className="flex justify-between text-stone-500 text-[9px]">
-                            <span>{new Date(item.timestamp).toLocaleTimeString()}</span>
-                            <span className="text-amber-500/70">{item.partner.split(' ')[0]}</span>
-                          </div>
-                          <div className="text-stone-300 truncate">
-                            Dialer Bridge: +1 {item.phoneNumber}
-                          </div>
+                  {leadCaptureLogs.length === 0 ? (
+                    <p className="text-[10px] font-mono text-stone-600">No logs found.</p>
+                  ) : (
+                    leadCaptureLogs.slice(0, 3).map((item: any) => (
+                      <div key={item.id} className="text-[10px] font-mono text-stone-400 flex flex-col gap-0.5 border-l border-amber-500/30 pl-2">
+                        <div className="flex justify-between text-stone-500 text-[9px]">
+                          <span>{new Date(item.timestamp).toLocaleTimeString()}</span>
+                          <span className="text-amber-500/70">{item.partner.split(' ')[0]}</span>
                         </div>
-                      ));
-                    } catch (e) {
-                      return <p className="text-[10px] font-mono text-stone-600">Failed to read ledger.</p>;
-                    }
-                  })()}
+                        <div className="text-stone-300 truncate">
+                          Dialer Bridge: +1 {item.phoneNumber}
+                        </div>
+                      </div>
+                    ))
+                  )}
                 </div>
               </div>
 

@@ -58,8 +58,8 @@ export default function Contact() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm text-stone-700 dark:text-stone-300">
           <div className="space-y-2 border-l-2 border-amber-500 pl-4">
             <h4 className="font-serif font-bold text-stone-900 dark:text-stone-100 uppercase text-xs tracking-wider">Direct Voice</h4>
-            <p>Office: +1 (310) 555-0190</p>
-            <p>Discreet: +1 (310) 555-0112</p>
+            <p>Office: <a href="tel:+13105550190" className="hover:text-amber-600 dark:hover:text-amber-500 transition-colors cursor-pointer font-semibold underline decoration-amber-500/30">+1 (310) 555-0190</a></p>
+            <p>Discreet: <a href="tel:+13105550112" className="hover:text-amber-600 dark:hover:text-amber-500 transition-colors cursor-pointer font-semibold underline decoration-amber-500/30">+1 (310) 555-0112</a></p>
           </div>
 
           <div className="space-y-2 border-l-2 border-amber-500 pl-4">

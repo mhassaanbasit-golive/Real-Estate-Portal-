@@ -9,6 +9,7 @@ interface Message {
 }
 
 export default function Chatbot() {
+  const [isMounted, setIsMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isVoiceCallOpen, setIsVoiceCallOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -21,12 +22,18 @@ export default function Chatbot() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   // Auto-scroll to bottom when messages change
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, isLoading]);
+
+  if (!isMounted) return null;
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();

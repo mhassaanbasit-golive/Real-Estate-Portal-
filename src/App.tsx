@@ -39,6 +39,27 @@ export default function App() {
 
   // Sync theme class with HTML document
   useEffect(() => {
+    // Read the stored theme or default to dark on mount
+    try {
+      const savedTheme = localStorage.getItem('aura_theme') as 'light' | 'dark' | null;
+      if (savedTheme) {
+        setTheme(savedTheme);
+        if (savedTheme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    } catch (e) {
+      console.error('Failed to load theme', e);
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
+  // Sync theme class with HTML document when state changes
+  useEffect(() => {
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
@@ -59,7 +80,21 @@ export default function App() {
   }, []);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+    setTheme((prev) => {
+      const next = prev === 'light' ? 'dark' : 'light';
+      try {
+        if (next === 'dark') {
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('aura_theme', 'dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('aura_theme', 'light');
+        }
+      } catch (e) {
+        console.error('Failed to save theme', e);
+      }
+      return next;
+    });
   };
 
   const handleBookmarkToggle = (id: string, e: React.MouseEvent) => {
