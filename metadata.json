@@ -1,0 +1,6 @@
+{
+  "name": "Luxury Real Estate Portal",
+  "description": "An ultra-premium real estate application featuring high-end property listings, interactive mortgage calculators, customized neighborhood guides, and advanced search filters.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

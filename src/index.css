@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-mono: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-amber-50: #fbf9f6;
+  --color-amber-100: #f4eee3;
+  --color-amber-200: #e7dac4;
+  --color-amber-300: #d6bf9d;
+  --color-amber-400: #c5a880;
+  --color-amber-500: #bfa17a;
+  --color-amber-600: #9e805b;
+  --color-amber-700: #7d6143;
+  --color-amber-800: #5c442e;
+  --color-amber-900: #3b2b1d;
+  --color-amber-950: #1f160f;
+}
+
+@utility glass-nav {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@utility glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+@utility hero-gradient {
+  background: linear-gradient(180deg, rgba(8, 8, 8, 0.4) 0%, rgba(8, 8, 8, 0.8) 100%);
+}
+
+/* Base typography rules for premium senior designer polish */
+body {
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Luxury Editorial Serif Headers */
+.font-serif {
+  font-family: var(--font-serif) !important;
+  letter-spacing: -0.025em !important;
+  line-height: 1.15 !important;
+}
+
+h1.font-serif {
+  font-weight: 300 !important;
+  letter-spacing: -0.035em !important;
+}
+
+h2.font-serif {
+  font-weight: 400 !important;
+  letter-spacing: -0.025em !important;
+}
+
+h3.font-serif {
+  font-weight: 400 !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Replace robotic monospace style with high-end, elegant uppercase sans-serif spacing */
+.font-mono {
+  font-family: var(--font-sans) !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+}
+
+/* Premium styled buttons & inputs */
+button, input, select, textarea {
+  font-family: var(--font-sans);
+}
+
