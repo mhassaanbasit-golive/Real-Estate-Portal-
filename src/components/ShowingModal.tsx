@@ -45,6 +45,21 @@ export default function ShowingModal({ isOpen, onClose, listing }: ShowingModalP
     setErrors({});
     setIsLoading(true);
 
+    try {
+      const existingRaw = localStorage.getItem('brokerage_leads');
+      const existing = existingRaw ? JSON.parse(existingRaw) : [];
+      const newLead = {
+        id: Date.now().toString(),
+        type: 'showing_request',
+        timestamp: new Date().toISOString(),
+        ...formData
+      };
+      const updatedLeads = [newLead, ...existing];
+      localStorage.setItem('brokerage_leads', JSON.stringify(updatedLeads));
+    } catch (err) {
+      console.error("Failed to save showing lead", err);
+    }
+
     // Simulate luxury API booking delay
     setTimeout(() => {
       setIsLoading(false);

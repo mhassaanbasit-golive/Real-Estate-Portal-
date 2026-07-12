@@ -168,6 +168,62 @@ export const listingsData: Listing[] = [
     isFeatured: false,
     virtualTourUrl: '#',
     neighborhood: 'Beverly Hills'
+  },
+  {
+    id: 'lst_7',
+    title: 'The West Hollywood Architectural Duplex',
+    type: 'rent',
+    price: 25000,
+    beds: 3,
+    baths: 4,
+    sqft: 3600,
+    pricePerSqft: 7,
+    lotSize: '0.2 Acres',
+    yearBuilt: 2022,
+    hoa: 0,
+    address: '824 North Kings Road',
+    city: 'West Hollywood',
+    description: 'A masterwork of sleek lines and glass volumes, this premium duplex in West Hollywood presents a dual-residence luxury lease opportunity. Features open-concept culinary galleries, high-end oak details, private rooftop entertainment lounge, and seamless flow between private pools and manicured green walls.',
+    images: [
+      'https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80'
+    ],
+    amenities: ['Dual Pool Layout', 'Manicured Green Walls', 'Rooftop Lounge', 'High-Spec Security', 'Gaggenau Kitchens', 'Custom Millwork'],
+    schoolRating: 9.2,
+    walkScore: 94,
+    transitScore: 82,
+    isFeatured: true,
+    virtualTourUrl: '#',
+    neighborhood: 'West Hollywood'
+  },
+  {
+    id: 'lst_8',
+    title: 'The Venice Concrete Monolith',
+    type: 'buy',
+    price: 4850000,
+    beds: 3,
+    baths: 3,
+    sqft: 4200,
+    pricePerSqft: 1154,
+    lotSize: '0.15 Acres',
+    yearBuilt: 2024,
+    hoa: 0,
+    address: '1414 Abbot Kinney Boulevard',
+    city: 'Venice Beach',
+    description: 'Forged from raw off-form board concrete, steel structural ribbons, and massive panes of structural glass, this ultra-minimalist Venice Beach estate represents the peak of coastal modernism. Bathed in light, the multi-level pavilion features an open culinary showroom, integrated security tech, floating custom concrete stairs, and a serene inner rock garden with a private cedar plunge pool.',
+    images: [
+      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80'
+    ],
+    amenities: ['Concrete Architecture', 'Plunge Pool', 'Inner Rock Garden', 'Abbot Kinney Proximity', 'Solar Array', 'Smart Controls'],
+    schoolRating: 9.1,
+    walkScore: 96,
+    transitScore: 80,
+    isFeatured: true,
+    virtualTourUrl: '#',
+    neighborhood: 'Venice Beach'
   }
 ];
 

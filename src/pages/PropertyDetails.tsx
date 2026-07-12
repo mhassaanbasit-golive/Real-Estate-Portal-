@@ -60,6 +60,22 @@ export default function PropertyDetails({
     setBookingErrors({});
     setIsBookingLoading(true);
 
+    try {
+      const existingRaw = localStorage.getItem('brokerage_leads');
+      const existing = existingRaw ? JSON.parse(existingRaw) : [];
+      const newLead = {
+        id: Date.now().toString(),
+        type: 'direct_booking',
+        timestamp: new Date().toISOString(),
+        ...directBooking,
+        propertyTitle: listing.title
+      };
+      const updatedLeads = [newLead, ...existing];
+      localStorage.setItem('brokerage_leads', JSON.stringify(updatedLeads));
+    } catch (err) {
+      console.error("Failed to save direct booking lead", err);
+    }
+
     setTimeout(() => {
       setIsBookingLoading(false);
       setIsBookingSuccess(true);

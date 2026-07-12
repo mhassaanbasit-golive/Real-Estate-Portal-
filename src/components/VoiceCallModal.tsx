@@ -47,7 +47,7 @@ export default function VoiceCallModal({ isOpen, onClose }: VoiceCallModalProps)
   React.useEffect(() => {
     if (isOpen) {
       try {
-        const existingRaw = localStorage.getItem('lead_capture');
+        const existingRaw = localStorage.getItem('brokerage_leads');
         setLeadCaptureLogs(existingRaw ? JSON.parse(existingRaw) : []);
       } catch (err) {
         console.error("Failed to load lead captures from storage", err);
@@ -70,17 +70,19 @@ export default function VoiceCallModal({ isOpen, onClose }: VoiceCallModalProps)
 
     // Commit to localStorage instantly
     try {
-      const existingRaw = localStorage.getItem('lead_capture');
+      const existingRaw = localStorage.getItem('brokerage_leads');
       const existing = existingRaw ? JSON.parse(existingRaw) : [];
       const newLead = {
         id: Date.now().toString(),
+        type: 'callback_request',
         timestamp: new Date().toISOString(),
-        phoneNumber: trimmedPhone,
+        phone: trimmedPhone,
         partner: PARTNERS[selectedPartner].name,
         partnerRole: PARTNERS[selectedPartner].role,
         specialty: PARTNERS[selectedPartner].specialty,
       };
       const updatedLeads = [newLead, ...existing];
+      localStorage.setItem('brokerage_leads', JSON.stringify(updatedLeads));
       localStorage.setItem('lead_capture', JSON.stringify(updatedLeads));
       setLeadCaptureLogs(updatedLeads);
     } catch (err) {
@@ -317,7 +319,7 @@ export default function VoiceCallModal({ isOpen, onClose }: VoiceCallModalProps)
                           <span className="text-amber-500/70">{item.partner.split(' ')[0]}</span>
                         </div>
                         <div className="text-stone-300 truncate">
-                          Dialer Bridge: +1 {item.phoneNumber}
+                          Dialer Bridge: {item.phone || item.phoneNumber}
                         </div>
                       </div>
                     ))

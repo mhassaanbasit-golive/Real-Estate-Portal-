@@ -17,6 +17,22 @@ export default function Footer({ setPage }: FooterProps) {
       return;
     }
     setError('');
+
+    try {
+      const existingRaw = localStorage.getItem('brokerage_leads');
+      const existing = existingRaw ? JSON.parse(existingRaw) : [];
+      const newLead = {
+        id: Date.now().toString(),
+        type: 'newsletter_subscription',
+        timestamp: new Date().toISOString(),
+        email: email
+      };
+      const updatedLeads = [newLead, ...existing];
+      localStorage.setItem('brokerage_leads', JSON.stringify(updatedLeads));
+    } catch (err) {
+      console.error("Failed to save newsletter subscription", err);
+    }
+
     setIsSubscribed(true);
     setEmail('');
   };
@@ -35,7 +51,7 @@ export default function Footer({ setPage }: FooterProps) {
             </span>
           </div>
           <p className="text-sm text-stone-400 leading-relaxed max-w-sm">
-            Setting the global standard for prestigious real estate brokerage and private property advisory. Providing absolute discretion, predictive intelligence, and bespoke acquisition services to ultra-high-net-worth portfolios worldwide.
+            Setting the global standard for prestigious real estate brokerage and private property advisory. Providing absolute discretion, elite market intelligence, and bespoke acquisition services to ultra-high-net-worth portfolios worldwide.
           </p>
           <div className="flex space-x-4">
             <a href="#" className="p-2 border border-stone-800 dark:border-white/10 hover:border-white dark:hover:border-white hover:text-white dark:hover:text-white rounded-full transition-colors">

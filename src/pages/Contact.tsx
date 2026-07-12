@@ -34,6 +34,21 @@ export default function Contact() {
     setErrors({});
     setIsLoading(true);
 
+    try {
+      const existingRaw = localStorage.getItem('brokerage_leads');
+      const existing = existingRaw ? JSON.parse(existingRaw) : [];
+      const newLead = {
+        id: Date.now().toString(),
+        type: 'contact_inquiry',
+        timestamp: new Date().toISOString(),
+        ...formData
+      };
+      const updatedLeads = [newLead, ...existing];
+      localStorage.setItem('brokerage_leads', JSON.stringify(updatedLeads));
+    } catch (err) {
+      console.error("Failed to save contact lead", err);
+    }
+
     setTimeout(() => {
       setIsLoading(false);
       setIsSuccess(true);

@@ -25,7 +25,7 @@ export default function Home({
   // Search parameters in state
   const [searchTab, setSearchTab] = useState<'buy' | 'rent'>('buy');
   const [citySearch, setCitySearch] = useState('');
-  const [priceRange, setPriceRange] = useState(15000000);
+  const [priceRange, setPriceRange] = useState(50000000);
   const [citySuggestions, setCitySuggestions] = useState<string[]>([]);
 
   // Testimonial slider
@@ -43,7 +43,7 @@ export default function Home({
       setCitySuggestions([]);
       return;
     }
-    const filtered = ['Malibu', 'Beverly Hills', 'New York', 'Miami', 'Aspen'].filter((city) =>
+    const filtered = ['Malibu', 'Beverly Hills', 'New York', 'Miami', 'Aspen', 'West Hollywood', 'Venice Beach'].filter((city) =>
       city.toLowerCase().startsWith(citySearch.toLowerCase())
     );
     setCitySuggestions(filtered);
@@ -55,7 +55,7 @@ export default function Home({
       city: citySearch,
       type: searchTab,
       minPrice: 0,
-      maxPrice: priceRange === 15000000 ? 999000000 : priceRange,
+      maxPrice: priceRange === 50000000 ? 999000000 : priceRange,
       beds: 'all',
       baths: 'all',
       propertyType: 'all',
@@ -204,20 +204,20 @@ export default function Home({
                 <div className="flex justify-between items-center mb-1.5">
                   <label className="text-[10px] font-mono uppercase tracking-widest text-stone-500 dark:text-stone-400 font-bold">Max Investment</label>
                   <span className="text-xs font-mono font-bold text-stone-800 dark:text-amber-500">
-                    {priceRange === 15000000 ? '$15.0M+' : `$${(priceRange / 1000000).toFixed(1)}M`}
+                    {priceRange === 50000000 ? '$50.0M+' : `$${(priceRange / 1000000).toFixed(1)}M`}
                   </span>
                 </div>
                 <div className="relative flex items-center h-5 px-1 bg-stone-100/50 dark:bg-white/[0.02] border border-stone-200/50 dark:border-white/10 rounded-xl">
                   <input
                     type="range"
-                    min={1000000}
-                    max={15000000}
+                    min={2500000}
+                    max={50000000}
                     step={500000}
                     value={priceRange}
                     onChange={(e) => setPriceRange(Number(e.target.value))}
                     className="w-full h-1 cursor-pointer appearance-none bg-transparent outline-none accent-transparent [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-amber-600 dark:[&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-stone-250 dark:[&::-webkit-slider-thumb]:border-stone-700 [&::-webkit-slider-thumb]:shadow-md [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-amber-600 dark:[&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border [&::-moz-range-thumb]:border-stone-250 [&::-moz-range-thumb]:shadow-md"
                     style={{
-                      background: `linear-gradient(to right, #c5a880 0%, #c5a880 ${((priceRange - 1000000) / (15000000 - 1000000)) * 100}%, rgba(120, 113, 108, 0.2) ${((priceRange - 1000000) / (15000000 - 1000000)) * 100}%, rgba(120, 113, 108, 0.2) 100%)`
+                      background: `linear-gradient(to right, #c5a880 0%, #c5a880 ${((priceRange - 2500000) / (50000000 - 2500000)) * 100}%, rgba(120, 113, 108, 0.2) ${((priceRange - 2500000) / (50000000 - 2500000)) * 100}%, rgba(120, 113, 108, 0.2) 100%)`
                     }}
                   />
                 </div>

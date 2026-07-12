@@ -35,6 +35,21 @@ export default function About({ setPage }: AboutProps) {
     setErrors({});
     setIsLoading(true);
 
+    try {
+      const existingRaw = localStorage.getItem('brokerage_leads');
+      const existing = existingRaw ? JSON.parse(existingRaw) : [];
+      const newLead = {
+        id: Date.now().toString(),
+        type: 'career_application',
+        timestamp: new Date().toISOString(),
+        ...careerForm
+      };
+      const updatedLeads = [newLead, ...existing];
+      localStorage.setItem('brokerage_leads', JSON.stringify(updatedLeads));
+    } catch (err) {
+      console.error("Failed to save career lead", err);
+    }
+
     setTimeout(() => {
       setIsLoading(false);
       setIsSuccess(true);
@@ -64,7 +79,7 @@ export default function About({ setPage }: AboutProps) {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8 max-w-3xl mx-auto">
           {[
             { title: 'Absolute Discretion', desc: 'Ironclad non-disclosure agreements and private off-market transaction structures govern every trade.' },
-            { title: 'Predictive Modeling', desc: 'Our quantitative advisory desk tracks macro interest rate cycles, capital flights, and construction cost indices.' },
+            { title: 'Market Analytics', desc: 'Our advisory desk tracks macro interest rate cycles, luxury market indicators, and structural cost indices.' },
             { title: 'Bespoke Curations', desc: 'We coordinate full-scale private tours, helicopter landing privileges, and certified architectural assessments.' },
           ].map((v) => (
             <div key={v.title} className="p-5 border border-stone-150 dark:border-white/10 rounded-2xl text-left bg-stone-50 dark:bg-white/[0.02] space-y-2">

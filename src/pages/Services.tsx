@@ -64,7 +64,22 @@ export default function Services() {
     setErrors({});
     setIsLoading(true);
 
-    // Simulate luxury AI valuation appraisal calculation
+    try {
+      const existingRaw = localStorage.getItem('brokerage_leads');
+      const existing = existingRaw ? JSON.parse(existingRaw) : [];
+      const newLead = {
+        id: Date.now().toString(),
+        type: 'valuation_request',
+        timestamp: new Date().toISOString(),
+        ...formData
+      };
+      const updatedLeads = [newLead, ...existing];
+      localStorage.setItem('brokerage_leads', JSON.stringify(updatedLeads));
+    } catch (err) {
+      console.error("Failed to save valuation lead", err);
+    }
+
+    // Simulate luxury property valuation calculation
     setTimeout(() => {
       let baseSqftMultiplier = 1800; // Malibu baseline
       if (formData.city === 'Beverly Hills') baseSqftMultiplier = 2200;
@@ -159,9 +174,9 @@ export default function Services() {
           {/* Step visual progress tracker */}
           <div className="text-center space-y-3">
             <span className="text-[10px] font-mono uppercase tracking-[0.2em] font-extrabold text-amber-600 dark:text-amber-500 flex items-center justify-center gap-1">
-              <Sparkles className="w-3.5 h-3.5" /> STATISTICAL APPRAISAL ENGINE
+              <Sparkles className="w-3.5 h-3.5" /> PRIVATE VALUE ESTIMATOR
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900 dark:text-white">Predictive Equity Appraisal</h2>
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900 dark:text-white">Private Property Valuation</h2>
           </div>
 
           {currentStep <= 3 && (
