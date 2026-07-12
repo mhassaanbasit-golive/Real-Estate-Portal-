@@ -150,7 +150,7 @@ export default function ShowingModal({ isOpen, onClose, listing }: ShowingModalP
                           type="tel"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder="+1 (310) 317-0199"
+                          placeholder="+1 (310) 278-3319"
                           className={`w-full pl-10 pr-4 py-2.5 bg-stone-50 dark:bg-slate-950 border ${errors.phone ? 'border-red-400' : 'border-stone-200 dark:border-slate-800'} rounded-lg text-sm text-stone-950 dark:text-stone-50 focus:outline-none focus:border-amber-500`}
                         />
                       </div>

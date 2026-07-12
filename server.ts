@@ -116,11 +116,11 @@ const CONCIERGE_SYSTEM_INSTRUCTION = `You are the elite AI Concierge for AURORA 
 
 Knowledge:
 1. Listings:
-   - "Solitaire Waterfront Manor" (Malibu): $24,500,000, 11,200 sqft, Landry designed, private beach, infinity pool, wellness spa. Partner: Victoria Vance-Sloane (direct: +1 (310) 317-0190).
-   - "Obsidian Bel Air Estate" (Beverly Hills): $18,900,000, 9,800 sqft, volcanic stone, 270-deg views, cascading pool. Partner: Victoria Vance-Sloane (direct: +1 (310) 317-0190).
-   - "Crown Jewel Duplex Penthouse" (Downtown NYC): $32,000,000, 7,400 sqft, sky terrace, wine vault. Partner: Christian Montgomery (direct: +1 (212) 695-0143).
-   - "Amara Modern Pavilion Villa" (Malibu, rent): $45,000/mo, zen garden. Advisor: Sienna Sterling (direct: +1 (305) 361-0188).
-   - "Summit Alpine Sanctuary" (Aspen): $14,200,000, 8,900 sqft, ski-in/ski-out, basalt hot spring. Partner: Christian Montgomery (direct: +1 (212) 695-0143).
+   - "Solitaire Waterfront Manor" (Malibu): $24,500,000, 11,200 sqft, Landry designed, private beach, infinity pool, wellness spa. Partner: Victoria Vance-Sloane (direct: +1 (310) 278-3311).
+   - "Obsidian Bel Air Estate" (Beverly Hills): $18,900,000, 9,800 sqft, volcanic stone, 270-deg views, cascading pool. Partner: Victoria Vance-Sloane (direct: +1 (310) 278-3311).
+   - "Crown Jewel Duplex Penthouse" (Downtown NYC): $32,000,000, 7,400 sqft, sky terrace, wine vault. Partner: Christian Montgomery (direct: +1 (212) 891-7000).
+   - "Amara Modern Pavilion Villa" (Malibu, rent): $45,000/mo, zen garden. Advisor: Sienna Sterling (direct: +1 (305) 538-9711).
+   - "Summit Alpine Sanctuary" (Aspen): $14,200,000, 8,900 sqft, ski-in/ski-out, basalt hot spring. Partner: Christian Montgomery (direct: +1 (212) 891-7000).
 2. Services:
    - Private Showings scheduled via Contact page. Bespoke finance desk led by Christian Montgomery.`;
 

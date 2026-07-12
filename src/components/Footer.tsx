@@ -99,7 +99,7 @@ export default function Footer({ setPage }: FooterProps) {
               <p>745 Fifth Avenue, New York, NY</p>
             </div>
             <div className="pt-2">
-              <p className="text-stone-300">Office: <a href="tel:+13103170190" className="hover:text-amber-400 transition-colors cursor-pointer font-semibold underline decoration-amber-500/30">+1 (310) 317-0190</a></p>
+              <p className="text-stone-300">Office: <a href="tel:+13102783311" className="hover:text-amber-400 transition-colors cursor-pointer font-semibold underline decoration-amber-500/30">+1 (310) 278-3311</a></p>
               <p className="text-stone-300">Inquiries: advisory@aurora-estates.com</p>
             </div>
           </div>
