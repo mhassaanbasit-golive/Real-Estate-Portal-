@@ -49,7 +49,7 @@ export default function Contact() {
           <h1 className="font-serif text-4xl font-extrabold text-stone-900 dark:text-white tracking-tight leading-tight">
             Connect With Our Advisory Suite
           </h1>
-          <p className="text-sm text-stone-555 dark:text-stone-400">
+          <p className="text-sm text-stone-500 dark:text-stone-400">
             For global asset acquisitions, luxury leases, or confidential listing representations. Complete discretion guaranteed.
           </p>
         </div>
@@ -58,8 +58,8 @@ export default function Contact() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm text-stone-700 dark:text-stone-300">
           <div className="space-y-2 border-l-2 border-amber-500 pl-4">
             <h4 className="font-serif font-bold text-stone-900 dark:text-stone-100 uppercase text-xs tracking-wider">Direct Voice</h4>
-            <p>Office: <a href="tel:+13105550190" className="hover:text-amber-600 dark:hover:text-amber-500 transition-colors cursor-pointer font-semibold underline decoration-amber-500/30">+1 (310) 555-0190</a></p>
-            <p>Discreet: <a href="tel:+13105550112" className="hover:text-amber-600 dark:hover:text-amber-500 transition-colors cursor-pointer font-semibold underline decoration-amber-500/30">+1 (310) 555-0112</a></p>
+            <p>Office: <a href="tel:+13103170190" className="hover:text-amber-600 dark:hover:text-amber-500 transition-colors cursor-pointer font-semibold underline decoration-amber-500/30">+1 (310) 317-0190</a></p>
+            <p>Discreet: <a href="tel:+13103170112" className="hover:text-amber-600 dark:hover:text-amber-500 transition-colors cursor-pointer font-semibold underline decoration-amber-500/30">+1 (310) 317-0112</a></p>
           </div>
 
           <div className="space-y-2 border-l-2 border-amber-500 pl-4">
@@ -161,7 +161,7 @@ export default function Contact() {
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  placeholder="+1 (310) 555-0199"
+                  placeholder="+1 (310) 317-0199"
                   className={`w-full px-3 py-2 bg-white dark:bg-white/[0.02] border ${errors.phone ? 'border-red-400' : 'border-stone-200 dark:border-white/10'} rounded-lg text-xs text-stone-900 dark:text-stone-100 focus:outline-none focus:border-amber-500`}
                 />
                 {errors.phone && <p className="text-[10px] text-red-500 mt-1">{errors.phone}</p>}

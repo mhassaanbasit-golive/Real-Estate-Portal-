@@ -11,7 +11,13 @@ interface Message {
 function getSimulatedResponse(lastMessage: string): string {
   const query = lastMessage.toLowerCase();
   
-  if (query.includes("malibu") && query.includes("listing")) {
+  if (query.includes("location") || query.includes("address") || query.includes("where are you") || query.includes("office")) {
+    return `Aurora Estates represents the absolute pinnacle of luxury brokerage. We maintain physical representations at:
+• **The Pacific Coast Suite**: 2410 Ocean Avenue, Malibu, CA
+• **The Manhattan Boardroom**: 745 Fifth Avenue, New York, NY
+
+Additionally, we deal in premier luxury assets and secure transactions all across the USA with absolute class, precision, and ironclad discretion. Please provide your email address or telephone number so we may dispatch a dedicated partner to represent your interest.`;
+  } else if (query.includes("malibu") && query.includes("listing")) {
     return `Our premium Malibu inventory currently features "The Solitaire Waterfront Manor"—an architectural masterpiece by Richard Landry listed at $24,500,000. It offers 11,200 square feet of limestone and structural glass, direct beach access, and a zero-edge infinity pool. \n\nAdditionally, we offer the "Amara Modern Pavilion Villa" for lease at $45,000/month, curated by Sienna Sterling. Please let me know if you would like Victoria Vance-Sloane or Sienna Sterling to arrange an inspection of these coastal estates.`;
   } else if (query.includes("valuation") || query.includes("calculate")) {
     return `To estimate your estate's current market valuation, you can utilize our instant Valuation tool on the Home page, which cross-references current historical index averages. \n\nFor a comprehensive, certified luxury appraisal, our Global Acquisitions Director, Christian Montgomery, will conduct a multi-vector portfolio analysis. Please let us know your property details to initiate this review.`;
@@ -34,7 +40,13 @@ function getSimulatedResponse(lastMessage: string): string {
   } else if (query.includes("beverly") || query.includes("hills")) {
     return `Beverly Hills represents the ultimate echelon of prestige, boasting an average property price of $19,800,000. Under guard of exclusive private patrols, it maintains a 9.8/10 Crime Safety Index and an outstanding 9.9/10 academic evaluation score.`;
   } else {
-    return `Greetings. On behalf of senior managing partners Victoria Vance-Sloane, Christian Montgomery, and Sienna Sterling, I welcome you to Aurora Estates. Our exclusive portal encompasses the finest residential holdings across Malibu, Beverly Hills, Aspen, and Downtown Manhattan.\n\nI am prepared to assist you across any of our primary focus vectors:\n• Bespoke Acquisitions & Market Appraisals\n• Ultra-Luxury Leasing & Seasonal Portfolios\n• Private Showing Appointments & Tour Logistics\n• School District Metrics & Neighborhood Safety Reports\n\nPlease advise on which residential domain or specific listing you wish to explore.`;
+    return `Greetings from Aurora Estates. I am the Elite AI Concierge. We do not offer generic assistance; instead, we represent peerless residential assets with absolute class, precision, and ironclad discretion. 
+
+Our physical brokerage representation includes:
+• **The Pacific Coast Suite**: 2410 Ocean Avenue, Malibu, CA
+• **The Manhattan Boardroom**: 745 Fifth Avenue, New York, NY
+
+We deal in premium residential holdings all across the USA. Please provide your email address or direct phone number so a senior managing partner may contact you confidentially. How may I represent your interests today?`;
   }
 }
 
@@ -45,7 +57,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: 'Greetings. I am the Aurora Elite Advisory Concierge. How may I assist you with your real estate acquisitions, property evaluations, or local neighborhood metrics today?'
+      content: 'Greetings. I am the Aurora Estates Elite AI Concierge. We represent ultra-exclusive portfolios across the USA, with suites at 2410 Ocean Avenue in Malibu and 745 Fifth Avenue in Manhattan. Please provide your email address or phone number so a senior partner may reach out directly, or ask me any portfolio query.'
     }
   ]);
   const [inputValue, setInputValue] = useState('');

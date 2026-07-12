@@ -146,7 +146,7 @@ export default function VoiceCallModal({ isOpen, onClose }: VoiceCallModalProps)
                     Call Immediately (Mobile & VoIP)
                   </label>
                   <a
-                    href="tel:+13105550190"
+                    href="tel:+13103170190"
                     className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 rounded-xl border border-amber-500/20 bg-amber-950/10 hover:bg-amber-950/20 hover:border-amber-500/40 text-stone-200 hover:text-white transition-all cursor-pointer group shadow-sm gap-2"
                   >
                     <div className="flex items-center gap-3">
@@ -154,7 +154,7 @@ export default function VoiceCallModal({ isOpen, onClose }: VoiceCallModalProps)
                         <Phone className="w-4 h-4" />
                       </div>
                       <div className="min-w-0">
-                        <h4 className="text-xs font-serif font-bold tracking-wide">+1 (310) 555-0190</h4>
+                        <h4 className="text-xs font-serif font-bold tracking-wide">+1 (310) 317-0190</h4>
                         <p className="text-[10px] text-stone-500 mt-0.5">Pacific Coast Suite advisory desk</p>
                       </div>
                     </div>
@@ -227,7 +227,7 @@ export default function VoiceCallModal({ isOpen, onClose }: VoiceCallModalProps)
                           setPhoneNumber(e.target.value);
                           if (validationError) setValidationError('');
                         }}
-                        placeholder="(555) 019-2834"
+                        placeholder="(310) 317-2834"
                         className="w-full bg-stone-950 border border-stone-900 focus:border-amber-500/40 focus:outline-none rounded-xl pl-9 pr-4 py-3 text-xs text-stone-200 placeholder-stone-700 font-mono tracking-wider"
                       />
                     </div>
