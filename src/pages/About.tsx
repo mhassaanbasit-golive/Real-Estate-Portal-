@@ -137,7 +137,7 @@ export default function About({ setPage }: AboutProps) {
                     <span>Email Partner</span>
                   </a>
                   <a
-                    href={`tel:${agent.phone}`}
+                    href={`tel:${agent.phone.replace(/[^\d+]/g, '')}`}
                     className="w-1/2 py-2 bg-stone-900 hover:bg-stone-850 dark:bg-white/10 dark:hover:bg-white/20 text-white dark:text-stone-200 text-xs font-mono font-bold uppercase rounded-lg text-center flex items-center justify-center gap-1.5 transition-colors"
                   >
                     <Phone className="w-3.5 h-3.5 text-amber-400" />

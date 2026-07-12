@@ -8,6 +8,36 @@ interface Message {
   content: string;
 }
 
+function getSimulatedResponse(lastMessage: string): string {
+  const query = lastMessage.toLowerCase();
+  
+  if (query.includes("malibu") && query.includes("listing")) {
+    return `Our premium Malibu inventory currently features "The Solitaire Waterfront Manor"—an architectural masterpiece by Richard Landry listed at $24,500,000. It offers 11,200 square feet of limestone and structural glass, direct beach access, and a zero-edge infinity pool. \n\nAdditionally, we offer the "Amara Modern Pavilion Villa" for lease at $45,000/month, curated by Sienna Sterling. Please let me know if you would like Victoria Vance-Sloane or Sienna Sterling to arrange an inspection of these coastal estates.`;
+  } else if (query.includes("valuation") || query.includes("calculate")) {
+    return `To estimate your estate's current market valuation, you can utilize our instant Valuation tool on the Home page, which cross-references current historical index averages. \n\nFor a comprehensive, certified luxury appraisal, our Global Acquisitions Director, Christian Montgomery, will conduct a multi-vector portfolio analysis. Please let us know your property details to initiate this review.`;
+  } else if (query.includes("book") || query.includes("showing") || query.includes("advisor")) {
+    return `I would be pleased to schedule a private showing with one of our principal partners:\n• Victoria Vance-Sloane for coastal Malibu manors or exclusive Beverly Hills estates.\n• Christian Montgomery for Manhattan duplexes and global acquisitions.\n• Sienna Sterling for high-profile luxury leases.\n\nPlease specify your preferred date, hour, and portfolio of interest, or submit a request directly via our integrated Contact page.`;
+  } else if (query.includes("solitaire") || query.includes("landry") || (query.includes("malibu") && query.includes("manor"))) {
+    return `The Solitaire Waterfront Manor in Malibu stands as a peerless architectural achievement designed by the esteemed Richard Landry. Offered at $24,500,000, this limestone and structural glass estate provides 11,200 square feet of immaculate living space on a 1.4-acre beachfront parcel. \n\nIt accommodates 6 elegant bedrooms, 8 baths, a professional wellness spa, and an exquisite zero-edge infinity pool opening directly onto your private shoreline. Senior Managing Partner Victoria Vance-Sloane is personally supervising this listing and would be delighted to coordinate a private showing.`;
+  } else if (query.includes("obsidian") || query.includes("bel air") || query.includes("beverly") || query.includes("obsidian bel air")) {
+    return `The Obsidian Bel Air Estate in Beverly Hills, listed at $18,900,000, is an avant-garde masterpiece of volcanic stone and minimalist lines. Positioned to command 270-degree vistas of the Los Angeles Basin and the Pacific Ocean, this 9,800-square-foot sanctuary offers 5 bedrooms, 7 baths, and an auto gallery capable of housing 6 prized motorcars. \n\nLeisure is elevated by its cascading pool and dual professional culinary suites. Victoria Vance-Sloane directs acquisitions for this exceptional estate.`;
+  } else if (query.includes("penthouse") || query.includes("crown jewel") || query.includes("central park") || query.includes("downtown")) {
+    return `The Crown Jewel Duplex Penthouse, suspended 800 feet above Central Park in Manhattan, is offered at $32,000,000. It is a dual-level modern sanctuary spanning 7,400 square feet with a helical bronze staircase, herringbone white oak floors, and a private sky terrace. \n\nChristian Montgomery, our Director of Global Acquisitions, is the exclusive representative for this unparalleled high-rise estate.`;
+  } else if (query.includes("aspen") || query.includes("summit") || query.includes("alpine")) {
+    return `The Summit Alpine Sanctuary in Aspen ($14,200,000) is a ski-in/ski-out fortress fashioned from reclaimed white fir and native granite. Spanning 8,900 square feet, it offers 6 bedrooms, 7 baths, an internal basalt hot spring, and a professional wellness sauna. Christian Montgomery governs this mountain masterpiece.`;
+  } else if (query.includes("school") || query.includes("education") || query.includes("rating")) {
+    return `Educational facilities surrounding our portfolios represent the pinnacle of academic distinction:\n• Beverly Hills Estates enjoy proximity to schools rated at 9.9/10.\n• Malibu portfolios are served by institutions evaluated at 9.7/10.\n• Manhattan/Downtown residential suites reside near academies rated at 9.2/10.\n\nEach region provides exemplary private educational consultancies to assist with enrollment.`;
+  } else if (query.includes("mortgage") || query.includes("interest") || query.includes("down payment") || query.includes("calculator")) {
+    return `For our distinguished clientele, we advise a standard 20% down payment to establish an optimal financing posture. Our internal advisory desk, led by Christian Montgomery, partners with elite private banks to structure bespoke amortizations and custom lending vehicles tailored to complex multi-jurisdictional asset portfolios.`;
+  } else if (query.includes("malibu")) {
+    return `Malibu remains a highly coveted coastal enclave. The average entry price sits at $16,400,000, reflecting its pristine private shorelines. The region boasts a perfect 9.5/10 Crime Safety Index and a commendable 9.7/10 School Rating, pairing natural coastal majesty with secure serenity.`;
+  } else if (query.includes("beverly") || query.includes("hills")) {
+    return `Beverly Hills represents the ultimate echelon of prestige, boasting an average property price of $19,800,000. Under guard of exclusive private patrols, it maintains a 9.8/10 Crime Safety Index and an outstanding 9.9/10 academic evaluation score.`;
+  } else {
+    return `Greetings. On behalf of senior managing partners Victoria Vance-Sloane, Christian Montgomery, and Sienna Sterling, I welcome you to Aurora Estates. Our exclusive portal encompasses the finest residential holdings across Malibu, Beverly Hills, Aspen, and Downtown Manhattan.\n\nI am prepared to assist you across any of our primary focus vectors:\n• Bespoke Acquisitions & Market Appraisals\n• Ultra-Luxury Leasing & Seasonal Portfolios\n• Private Showing Appointments & Tour Logistics\n• School District Metrics & Neighborhood Safety Reports\n\nPlease advise on which residential domain or specific listing you wish to explore.`;
+  }
+}
+
 export default function Chatbot() {
   const [isMounted, setIsMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -33,6 +63,7 @@ export default function Chatbot() {
     }
   }, [messages, isLoading]);
 
+  if (typeof window === 'undefined') return null;
   if (!isMounted) return null;
 
   const handleSend = async (e: React.FormEvent) => {
@@ -61,12 +92,13 @@ export default function Chatbot() {
       const data = await response.json();
       setMessages((prev) => [...prev, { role: 'assistant', content: data.message }]);
     } catch (error: any) {
-      console.error('Chat error:', error);
+      console.warn('Backend chat not available, falling back to local luxury simulated engine:', error);
+      const simulatedText = getSimulatedResponse(userMessageContent);
       setMessages((prev) => [
         ...prev,
         {
           role: 'assistant',
-          content: 'I apologize, but I encountered a temporary connection issue. Please verify your internet connection or try again later.'
+          content: simulatedText
         }
       ]);
     } finally {
@@ -97,12 +129,13 @@ export default function Chatbot() {
       const data = await response.json();
       setMessages((prev) => [...prev, { role: 'assistant', content: data.message }]);
     } catch (error: any) {
-      console.error('Chat error:', error);
+      console.warn('Backend chat not available, falling back to local luxury simulated engine:', error);
+      const simulatedText = getSimulatedResponse(text);
       setMessages((prev) => [
         ...prev,
         {
           role: 'assistant',
-          content: 'I apologize, but I encountered a temporary connection issue. Please verify your internet connection or try again later.'
+          content: simulatedText
         }
       ]);
     } finally {

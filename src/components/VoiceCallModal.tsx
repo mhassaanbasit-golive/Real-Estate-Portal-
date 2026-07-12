@@ -36,6 +36,7 @@ const PARTNERS: Record<PartnerKey, Partner> = {
 export default function VoiceCallModal({ isOpen, onClose }: VoiceCallModalProps) {
   const [selectedPartner, setSelectedPartner] = useState<PartnerKey>('victoria');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [validationError, setValidationError] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isNotified, setIsNotified] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,39 +57,45 @@ export default function VoiceCallModal({ isOpen, onClose }: VoiceCallModalProps)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!phoneNumber.trim()) return;
+    const trimmedPhone = phoneNumber.trim();
+    if (!trimmedPhone) return;
 
-    setIsLoading(true);
-    // Simulate callback dispatch purely via local React state
-    setTimeout(() => {
-      setIsLoading(false);
-      setIsNotified(true);
-      
-      try {
-        const existingRaw = localStorage.getItem('lead_capture');
-        const existing = existingRaw ? JSON.parse(existingRaw) : [];
-        const newLead = {
-          id: Date.now().toString(),
-          timestamp: new Date().toISOString(),
-          phoneNumber: phoneNumber.trim(),
-          partner: PARTNERS[selectedPartner].name,
-          partnerRole: PARTNERS[selectedPartner].role,
-          specialty: PARTNERS[selectedPartner].specialty,
-        };
-        const updatedLeads = [newLead, ...existing];
-        localStorage.setItem('lead_capture', JSON.stringify(updatedLeads));
-      } catch (err) {
-        console.error("Failed to save lead capture", err);
-      }
+    // A relaxed regex that accepts standard international formats, spaces, dashes, dots, parentheses, and plus signs
+    const phoneRegex = /^[\d\s()+\-.]+$/;
+    if (!phoneRegex.test(trimmedPhone)) {
+      setValidationError('Please enter a valid format (digits, spaces, or +-(). allowed)');
+      return;
+    }
+    setValidationError('');
 
-      setTimeout(() => {
-        setIsSubmitted(true);
-      }, 1000);
-    }, 1200);
+    // Commit to localStorage instantly
+    try {
+      const existingRaw = localStorage.getItem('lead_capture');
+      const existing = existingRaw ? JSON.parse(existingRaw) : [];
+      const newLead = {
+        id: Date.now().toString(),
+        timestamp: new Date().toISOString(),
+        phoneNumber: trimmedPhone,
+        partner: PARTNERS[selectedPartner].name,
+        partnerRole: PARTNERS[selectedPartner].role,
+        specialty: PARTNERS[selectedPartner].specialty,
+      };
+      const updatedLeads = [newLead, ...existing];
+      localStorage.setItem('lead_capture', JSON.stringify(updatedLeads));
+      setLeadCaptureLogs(updatedLeads);
+    } catch (err) {
+      console.error("Failed to save lead capture", err);
+    }
+
+    // Instantly trigger local state success flags
+    setIsLoading(false);
+    setIsNotified(true);
+    setIsSubmitted(true);
   };
 
   const handleReset = () => {
     setPhoneNumber('');
+    setValidationError('');
     setIsNotified(false);
     setIsSubmitted(false);
     onClose();
@@ -139,7 +146,7 @@ export default function VoiceCallModal({ isOpen, onClose }: VoiceCallModalProps)
                     Call Immediately (Mobile & VoIP)
                   </label>
                   <a
-                    href="tel:+1800287672"
+                    href="tel:+13105550190"
                     className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 rounded-xl border border-amber-500/20 bg-amber-950/10 hover:bg-amber-950/20 hover:border-amber-500/40 text-stone-200 hover:text-white transition-all cursor-pointer group shadow-sm gap-2"
                   >
                     <div className="flex items-center gap-3">
@@ -147,8 +154,8 @@ export default function VoiceCallModal({ isOpen, onClose }: VoiceCallModalProps)
                         <Phone className="w-4 h-4" />
                       </div>
                       <div className="min-w-0">
-                        <h4 className="text-xs font-serif font-bold tracking-wide">1-800-AURORA</h4>
-                        <p className="text-[10px] text-stone-500 mt-0.5">Toll-free private advisory desk</p>
+                        <h4 className="text-xs font-serif font-bold tracking-wide">+1 (310) 555-0190</h4>
+                        <p className="text-[10px] text-stone-500 mt-0.5">Pacific Coast Suite advisory desk</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-1.5 text-[10px] font-mono text-amber-500 tracking-wider font-semibold uppercase flex-shrink-0 self-start sm:self-center">
@@ -216,11 +223,17 @@ export default function VoiceCallModal({ isOpen, onClose }: VoiceCallModalProps)
                         type="text"
                         required
                         value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        onChange={(e) => {
+                          setPhoneNumber(e.target.value);
+                          if (validationError) setValidationError('');
+                        }}
                         placeholder="(555) 019-2834"
                         className="w-full bg-stone-950 border border-stone-900 focus:border-amber-500/40 focus:outline-none rounded-xl pl-9 pr-4 py-3 text-xs text-stone-200 placeholder-stone-700 font-mono tracking-wider"
                       />
                     </div>
+                    {validationError && (
+                      <p className="text-[10px] text-rose-500 font-mono mt-1.5 tracking-wide">{validationError}</p>
+                    )}
                   </div>
 
                   <button
